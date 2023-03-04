@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    ports:
+      - "5123:5432"
+    environment:
+      POSTGRES_DB: leo_db
+      POSTGRES_USER: leo_login
+      POSTGRES_PASSWORD: leo_password
+  discord_leo_bot:
+    container_name: discord_leo_bot
+    depends_on:
+      - postgres
+    build:
+      context: ../discord
+    hostname: leo_bot
+    ports:
+      - "8080:8080"
+    command:
+      - discord-leo-bot.jar
+    environment:
+      LEO_DB_HOST: postgres
+      LEO_DB_PORT: 5432
+    env_file:
+      - ignore.env

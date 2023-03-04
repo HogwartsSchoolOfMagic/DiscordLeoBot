@@ -1,0 +1,94 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2023.1-create_tables
+      author: Vladislav Kuznetsov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    unique: true
+                    primaryKey: true
+                    primaryKeyName: pk_servers
+                  remarks: Идентификатор сервера
+              - column:
+                  name: discord_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                    unique: true
+                  remarks: Идентификатор сервера (гильдии) в Discord
+              - column:
+                  name: premium_level
+                  type: bigint
+                  constraints:
+                    nullable: false
+                  defaultValueNumeric: '0'
+                  remarks: Premium уровень
+              - column:
+                  name: is_deleted
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: false
+                  remarks: Флаг того, что бот присутствует/не присутствует на сервере
+            remarks: Информация о серверах, где присутствует 'Leo Bot'
+            tableName: bot_servers
+        - createTable:
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    unique: true
+                    primaryKey: true
+                    primaryKeyName: pk_commands
+                  remarks: Идентификатор команды
+              - column:
+                  name: discord_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                  remarks: Идентификатор команды в Discord
+              - column:
+                  name: server_discord_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+                  remarks: Идентификатор сервера
+              - column:
+                  name: name
+                  type: text
+                  constraints:
+                    nullable: false
+                  remarks: Название команды
+              - column:
+                  name: is_active
+                  type: boolean
+                  constraints:
+                    nullable: false
+                  defaultValueBoolean: true
+                  remarks: Флаг того, что команда активна или нет для сервера
+              - column:
+                  name: description
+                  type: text
+                  remarks: Описание команды
+            remarks: Информация о командах серверов, где присутствует 'Leo Bot'
+            tableName: bot_commands
+        - createIndex:
+            columns:
+              - column:
+                  name: discord_id
+              - column:
+                  name: server_discord_id
+              - column:
+                  name: name
+            indexName: idx_unique_command
+            tableName: bot_commands
+            unique: true

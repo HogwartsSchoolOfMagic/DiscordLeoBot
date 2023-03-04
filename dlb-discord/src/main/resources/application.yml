@@ -1,0 +1,2 @@
+server:
+  port: ${LEO_SERVER_PORT:2303}

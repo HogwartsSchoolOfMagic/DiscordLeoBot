@@ -1,0 +1,15 @@
+spring:
+  r2dbc:
+    url: r2dbc:${LEO_DB_TYPE:postgresql}://${LEO_DB_HOST:localhost}:${LEO_DB_PORT:5123}/${LEO_DB_NAME:leo_db}
+    username: ${LEO_DB_LOGIN:leo_login}
+    password: ${LEO_DB_PASSWORD:leo_password}
+  liquibase:
+    url: jdbc:${LEO_DB_TYPE:postgresql}://${LEO_DB_HOST:localhost}:${LEO_DB_PORT:5123}/${LEO_DB_NAME:leo_db}
+    user: ${LEO_DB_LOGIN:leo_login}
+    password: ${LEO_DB_PASSWORD:leo_password}
+
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: ${LEO_R2DBC_LOGGING_LEVEL:DEBUG}

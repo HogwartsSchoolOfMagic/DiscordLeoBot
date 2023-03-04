@@ -1,0 +1,4 @@
+databaseChangeLog:
+  - include:
+      file: 2023.1/db.2023.1-master.yaml
+      relativeToChangelogFile: true
